@@ -15,7 +15,7 @@ Support for all popular css preprocessors: [Less](http://lesscss.org/), [Sass](h
 How to use
 --------------
 
-Just import the file, whitch includes variables colors in your project.
+Just import the file, whitch includes mixins in your project.
 
 **Less:**
 
@@ -37,9 +37,9 @@ Just import the file, whitch includes variables colors in your project.
 
 **The build variable:**
 
-`(.|@include|none)(prefix)-z-depth-(depth)-(orientation)`
+`(. | @include | none)(prefix)-z-depth-(depth)-(orientation)`
 
-  - **(.|@include|none)** - Sign of the variable in the preprocessor.
+  - **(. | @include | none)** - Sign of the variable in the preprocessor.
   - **(prefix)** - The prefix variable. Namespace of your variables and variables of the library. (With `material-shadows-prefixed` and without `material-shadows`)
   - **(depth)** - Depth 1..5.
   - **(orientation)** - None, Top or Bottom.
