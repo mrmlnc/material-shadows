@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Material Shadows</title>
+    <style>h1 { padding:50px 50px 0; } .paper { font-size:18px; position:relative; float:left; width:100px; height:100px; border-radius:4px; background:#fff; margin:50px; padding:25px; } .row:before,.row:after { display:table; content:" "; } .row:after { clear:both; } .z-depth-z1 { box-shadow:0 2px 5px 0 rgba(0,0,0,0.26),0 2px 10px 0 rgba(0,0,0,0.16); } .z-depth-z1-top { box-shadow:0 2px 10px 0 rgba(0,0,0,0.16); } .z-depth-z1-bottom { box-shadow:0 2px 5px 0 rgba(0,0,0,0.26); } .z-depth-z2 { box-shadow:0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19); } .z-depth-z2-top { box-shadow:0 6px 20px 0 rgba(0,0,0,0.19); } .z-depth-z2-bottom { box-shadow:0 8px 17px 0 rgba(0,0,0,0.2); } .z-depth-z3 { box-shadow:0 12px 15px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19); } .z-depth-z3-top { box-shadow:0 17px 50px 0 rgba(0,0,0,0.19); } .z-depth-z3-bottom { box-shadow:0 12px 15px 0 rgba(0,0,0,0.24); } .z-depth-z4 { box-shadow:0 16px 28px 0 rgba(0,0,0,0.22),0 25px 55px 0 rgba(0,0,0,0.21); } .z-depth-z4-top { box-shadow:0 25px 55px 0 rgba(0,0,0,0.21); } .z-depth-z4-bottom { box-shadow:0 16px 28px 0 rgba(0,0,0,0.22); } .z-depth-z5-top { box-shadow:0 40px 77px 0 rgba(0,0,0,0.22); } .z-depth-z5-bottom { box-shadow:0 27px 24px 0 rgba(0,0,0,0.2); } .z-depth-animation:hover .z-depth-z1,.z-depth-animation:hover .z-depth-z2,.z-depth-animation:hover .z-depth-z3,.z-depth-animation:hover .z-depth-z4,.z-depth-animation:hover .z-depth-z5 { transition:box-shadow .28s cubic-bezier(0.4,0,0.2,1); } .z-depth-z5,.z-depth-animation div:hover,.z-depth-animation div:focus { box-shadow:0 27px 24px 0 rgba(0,0,0,0.2),0 40px 77px 0 rgba(0,0,0,0.22); }</style>
+  </head>
+  <body>
+    <section class="row">
+      <h1>Full shadow</h1>
+      <div class="paper z-depth-z1">.z-depth-z1</div>
+      <div class="paper z-depth-z2">.z-depth-z2</div>
+      <div class="paper z-depth-z3">.z-depth-z3</div>
+      <div class="paper z-depth-z4">.z-depth-z4</div>
+      <div class="paper z-depth-z5">.z-depth-z5</div>
+    </section>
+    <section class="row">
+      <h1>Only top shadow</h1>
+      <div class="paper z-depth-z1-top">.z-depth-z1-top</div>
+      <div class="paper z-depth-z2-top">.z-depth-z2-top</div>
+      <div class="paper z-depth-z3-top">.z-depth-z3-top</div>
+      <div class="paper z-depth-z4-top">.z-depth-z4-top</div>
+      <div class="paper z-depth-z5-top">.z-depth-z5-top</div>
+    </section>
+    <section class="row">
+      <h1>Only bottom shadow</h1>
+      <div class="paper z-depth-z1-bottom">.z-depth-z1-bottom</div>
+      <div class="paper z-depth-z2-bottom">.z-depth-z2-bottom</div>
+      <div class="paper z-depth-z3-bottom">.z-depth-z3-bottom</div>
+      <div class="paper z-depth-z4-bottom">.z-depth-z4-bottom</div>
+      <div class="paper z-depth-z5-bottom">.z-depth-z5-bottom</div>
+    </section>
+    <section class="row">
+      <h1>Animation</h1>
+      <div class="z-depth-animation">
+        <div class="paper z-depth-z1">.z-depth-z1</div>
+        <div class="paper z-depth-z2">.z-depth-z2</div>
+        <div class="paper z-depth-z3">.z-depth-z3</div>
+        <div class="paper z-depth-z4">.z-depth-z4</div>
+        <div class="paper z-depth-z5">.z-depth-z5</div>
+      </div>
+    </section>
+  </body>
+</html>

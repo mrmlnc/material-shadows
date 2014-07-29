@@ -1,0 +1,145 @@
+// Name:           Material Shadows
+// Description:    Paper shadows of material design.
+//
+// Git:            https://github.com/mrmlnc/material-shadows
+//
+// ================================================================================
+
+
+
+// Settings
+// --------------------------------------------------------------------------------
+
+$md-z-depth-css:                       false;
+$md-z-depth-browser-prefix:            false;
+$md-z-depth-animation:                 true;
+$md-z-depth-animation-time:            .28s;
+$md-z-depth-animation-function:        cubic-bezier(.4, 0, .2, 1);
+
+
+
+// Shadows
+// --------------------------------------------------------------------------------
+
+$md-z-depth: (
+  // z-depth-1
+  (0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26)),
+
+  // z-depth-2
+  (0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2)),
+
+  // z-depth-3
+  (0 17px 50px 0 rgba(0, 0, 0, 0.19), 0 12px 15px 0 rgba(0, 0, 0, 0.24)),
+
+  // z-depth-4
+  (0 25px 55px 0 rgba(0, 0, 0, 0.21), 0 16px 28px 0 rgba(0, 0, 0, 0.22)),
+
+  // z-depth-5
+  (0 40px 77px 0 rgba(0, 0, 0, 0.22), 0 27px 24px 0 rgba(0, 0, 0, 0.2))
+);
+
+
+
+// Mixins
+// --------------------------------------------------------------------------------
+
+@mixin md-prefixer ($property, $value, $prefixes) {
+  @if $md-z-depth-browser-prefix {
+    @each $prefix in $prefixes {
+      @if $prefix == webkit {
+        -webkit-#{$property}: $value;
+      }
+      @else if $prefix == moz {
+        -moz-#{$property}: $value;
+      }
+      @else if $prefix == ms {
+        -ms-#{$property}: $value;
+      }
+      @else if $prefix == o {
+        -o-#{$property}: $value;
+      }
+      @else if $prefix == spec {
+        #{$property}: $value;
+      }
+      @else  {
+        @warn "Unrecognized prefix: #{$prefix}";
+      }
+    }
+  } @else {
+    #{$property}: $value;
+  }
+}
+
+// Top & Bottom
+@mixin md-z-depth($depth: 1, $orientation: null) {
+  @if $orientation == top {
+    @include md-prefixer(box-shadow, nth(nth($md-z-depth, $depth), 1), spec);
+  } @else if $orientation == bottom {
+    @include md-prefixer(box-shadow, nth(nth($md-z-depth, $depth), 2), spec);
+  } @else {
+    @include md-prefixer(box-shadow, nth($md-z-depth, $depth), spec);
+  }
+}
+
+// Top
+@mixin md-z-depth-top($depth: 1) {
+  @include md-z-depth($depth, top);
+}
+
+// Bottom
+@mixin md-z-depth-bottom($depth: 1) {
+  @include md-z-depth($depth, bottom);
+}
+
+// Animation
+@mixin md-z-depth-animation($depth-after, $orientation: full) {
+  &:hover,
+  &:focus {
+    @if $orientation == top {
+      @include md-z-depth-top($depth-after);
+    } @else if $orientation == bottom {
+      @include md-z-depth-bottom($depth-after);
+    } @else {
+      @include md-z-depth($depth-after);
+    }
+  }
+}
+
+
+
+// Classes
+// --------------------------------------------------------------------------------
+
+@if $md-z-depth-css {
+  .z-depth {
+    @for $i from 1 to length($md-z-depth) + 1 {
+      &-z#{$i} {
+        @include md-z-depth($i);
+
+        &-top {
+          @include md-z-depth-top($i);
+        }
+
+        &-bottom {
+          @include md-z-depth-bottom($i);
+        }
+      }
+    }
+
+
+    // z-depth-animation
+    @if $md-z-depth-animation {
+      &-animation {
+        &:hover {
+          .z-depth-z1,
+          .z-depth-z2,
+          .z-depth-z3,
+          .z-depth-z4,
+          .z-depth-z5 {
+            @include md-prefixer(transition, box-shadow  $md-z-depth-animation-time $md-z-depth-animation-function, webkit o spec);
+          }
+        }
+      }
+    }
+  }
+}

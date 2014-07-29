@@ -1,0 +1,126 @@
+// Name:           Material Shadows
+// Description:    Paper shadows of material design.
+//
+// Git:            https://github.com/mrmlnc/material-shadows
+//
+// ================================================================================
+
+
+
+// Settings
+// --------------------------------------------------------------------------------
+
+@z-depth-css:                          false;
+@z-depth-browser-prefix:               false;
+@z-depth-animation:                    true;
+@z-depth-animation-time:               .28s;
+@z-depth-animation-function:           cubic-bezier(.4, 0, .2, 1);
+
+
+
+// Shadows
+// --------------------------------------------------------------------------------
+
+// z-depth-1
+@z-depth-1-top:                        0 2px 10px 0 rgba(0, 0, 0, 0.16);
+@z-depth-1-bottom:                     0 2px 5px 0 rgba(0, 0, 0, 0.26);
+
+// z-depth-2
+@z-depth-2-top:                        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+@z-depth-2-bottom:                     0 8px 17px 0 rgba(0, 0, 0, 0.2);
+
+// z-depth-3
+@z-depth-3-top:                        0 17px 50px 0 rgba(0, 0, 0, 0.19);
+@z-depth-3-bottom:                     0 12px 15px 0 rgba(0, 0, 0, 0.24);
+
+// z-depth-4
+@z-depth-4-top:                        0 25px 55px 0 rgba(0, 0, 0, 0.21);
+@z-depth-4-bottom:                     0 16px 28px 0 rgba(0, 0, 0, 0.22);
+
+// z-depth-5
+@z-depth-5-top:                        0 40px 77px 0 rgba(0, 0, 0, 0.22);
+@z-depth-5-bottom:                     0 27px 24px 0 rgba(0, 0, 0, 0.2);
+
+
+
+// Mixins
+// --------------------------------------------------------------------------------
+
+// Top & Bottom
+.z-depth(@depth) {
+  box-shadow: ~"@{z-depth-@{depth}-bottom}, @{z-depth-@{depth}-top}";
+}
+
+// Top
+.z-depth-top(@depth: 1) {
+  box-shadow: ~"@{z-depth-@{depth}-top}";
+}
+
+// Bottom
+.z-depth-bottom(@depth: 1) {
+  box-shadow: ~"@{z-depth-@{depth}-bottom}";
+}
+
+// Animation
+.z-depth-animation(@depth-after, @depth-orientation: full) {
+  &:hover,
+  &:focus {
+    & when (@depth-orientation = full) {
+      .z-depth(@depth-after);
+    }
+
+    & when (@depth-orientation = top) {
+      .z-depth-top(@depth-after);
+    }
+
+    & when (@depth-orientation = bottom) {
+      .z-depth-bottom(@depth-after);
+    }
+  }
+}
+
+// Class generator - .z-depth-*
+.generate-depth(@i: 1, @count) when (@i =< @count) {
+  &-z@{i} {
+    .z-depth(@i);
+
+    &-top {
+      .z-depth-top(@i);
+    }
+
+    &-bottom {
+      .z-depth-bottom(@i);
+    }
+  }
+
+  .generate-depth(@i + 1, @count);
+}
+
+
+// Classes
+// --------------------------------------------------------------------------------
+
+.z-depth when (@z-depth-css = true) {
+  .generate-depth(1, 5);
+
+  // z-depth-animation
+  &-animation when (@z-depth-animation = true) {
+    &:hover {
+      .z-depth-z1,
+      .z-depth-z2,
+      .z-depth-z3,
+      .z-depth-z4,
+      .z-depth-z5 {
+        & when (@z-depth-browser-prefix = false) {
+          transition:box-shadow @z-depth-animation-time @z-depth-animation-function;
+        }
+
+        & when (@z-depth-browser-prefix = true) {
+          -webkit-transition:box-shadow @z-depth-animation-time @z-depth-animation-function;
+               -o-transition:box-shadow @z-depth-animation-time @z-depth-animation-function;
+                  transition:box-shadow @z-depth-animation-time @z-depth-animation-function;
+        }
+      }
+    }
+  }
+}
