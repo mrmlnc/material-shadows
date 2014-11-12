@@ -26,7 +26,7 @@ Just import the file, whitch includes mixins in your project.
 **Sass:**
 
 ````Sass
-  @import "lib/material-shadows";
+  @import "lib/material-shadows"
 ````
 
 **Stylus:**
