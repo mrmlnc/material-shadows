@@ -3,14 +3,17 @@ Material Design Shadows
 
 The paper shadows, based on [Google's Material Design](http://www.google.com/design/spec/layout/layout-principles.html), for use in your project.
 
-
-
 Support
 --------------
 
 Support for all popular css preprocessors: [Less](http://lesscss.org/), [Sass](http://sass-lang.com/) and [Stylus](http://learnboost.github.io/stylus/).
 
+Installation
+--------------
 
+Download the files you need from the this repository;
+Bower: `$ bower install material-shadows --save`;
+Git: `$ git clone git://github.com/mrmlnc/material-shadows.git`;
 
 How to use
 --------------
@@ -33,6 +36,12 @@ Just import the file, whitch includes mixins in your project.
 
 ````Stylus
   @import "lib/material-shadows";
+````
+
+If you use Bower, the path would be:
+
+````
+  bower_components/material-shadows/..
 ````
 
 **The build variable:**
