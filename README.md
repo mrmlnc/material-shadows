@@ -11,9 +11,9 @@ Support for all popular css preprocessors: [Less](http://lesscss.org/), [Sass](h
 Installation
 --------------
 
-Download the files you need from the this repository;
-Bower: `$ bower install material-shadows --save`;
-Git: `$ git clone git://github.com/mrmlnc/material-shadows.git`;
+ * Download the files you need from the this repository;
+ * Bower: `$ bower install material-shadows --save`;
+ * Git: `$ git clone git://github.com/mrmlnc/material-shadows.git`;
 
 How to use
 --------------
