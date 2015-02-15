@@ -2,7 +2,7 @@
 //
 // Name:           Material Shadows
 // Description:    Paper shadows of material design.
-// Version:        1.0.0
+// Version:        1.0.1
 //
 // Author:         Denis Malinochkin
 // Git:            https://github.com/mrmlnc/material-shadows
@@ -15,7 +15,6 @@
 // --------------------------------------------------------------------------------
 
 @md-z-depth-css:                       false;
-@md-z-depth-browser-prefix:            false;
 @md-z-depth-animation:                 true;
 @md-z-depth-animation-time:            .28s;
 @md-z-depth-animation-function:        cubic-bezier(.4, 0, .2, 1);
@@ -116,16 +115,7 @@
       .md-z-depth-z3,
       .md-z-depth-z4,
       .md-z-depth-z5 {
-        & when (@md-z-depth-browser-prefix = false) {
-          transition:box-shadow @md-z-depth-animation-time @md-z-depth-animation-function;
-        }
-
-        & when (@md-z-depth-browser-prefix = true) {
-          -webkit-transition:box-shadow @md-z-depth-animation-time @md-z-depth-animation-function;
-             -moz-transition:box-shadow @md-z-depth-animation-time @md-z-depth-animation-function;
-               -o-transition:box-shadow @md-z-depth-animation-time @md-z-depth-animation-function;
-                  transition:box-shadow @md-z-depth-animation-time @md-z-depth-animation-function;
-        }
+        transition: box-shadow @md-z-depth-animation-time @md-z-depth-animation-function;
       }
     }
   }

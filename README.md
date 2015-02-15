@@ -74,7 +74,6 @@ If you use Bower, the path would be:
 ````Text
   // If True, then will be CSS classes, type: .z-depth-*
   z-depth-css =                         [true | false (default)];
-  z-depth-browser-prefix =              [true | false (default)];
   z-depth-animation =                   [true (default) | false];
   z-depth-animation-time =              .28s;
   z-depth-animation-function =          cubic-bezier(.4, 0, .2, 1);

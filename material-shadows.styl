@@ -2,7 +2,7 @@
 //
 // Name:           Material Shadows
 // Description:    Paper shadows of material design.
-// Version:        1.0.0
+// Version:        1.0.1
 //
 // Author:         Denis Malinochkin
 // Git:            https://github.com/mrmlnc/material-shadows
@@ -15,7 +15,6 @@
 // --------------------------------------------------------------------------------
 
 $z-depth-css =                         false;
-$z-depth-browser-prefix =              false;
 $z-depth-animation =                   true;
 $z-depth-animation-time =              .28s;
 $z-depth-animation-function =          cubic-bezier(.4, 0, .2, 1);
@@ -57,32 +56,16 @@ $z-depth = {
 // Mixins
 // --------------------------------------------------------------------------------
 
-prefixer($property, $value, $prefixes)
-  if $z-depth-browser-prefix
-    for $prefix in $prefixes
-      if $prefix == webkit
-        -webkit-{$property}: $value
-      else if $prefix == moz
-        -moz-{$property}: $value
-      else if $prefix == ms
-        -ms-{$property}: $value
-      else if $prefix == o
-        -o-{$property}: $value
-      else if $prefix == spec
-        {$property}: $value
-  else
-    {$property}: $value
-
 // Top & Bottom
 z-depth($depth = 1, $orientation = null)
   $value = $z-depth["z" + $depth]
 
   if $orientation == top
-    prefixer(box-shadow, $value["top"], spec)
+    box-shadow: $value["top"]
   else if $orientation == bottom
-    prefixer(box-shadow, $value["bottom"], spec)
+    box-shadow: $value["bottom"]
   else
-    prefixer(box-shadow, s(join(', ', $value["top"], $value["bottom"])), spec)
+    box-shadow: s(join(', ', $value["top"], $value["bottom"]))
 
 // Top
 z-depth-top($depth = 1)
@@ -129,4 +112,4 @@ if $z-depth-css
           .z-depth-z3,
           .z-depth-z4,
           .z-depth-z5
-            prefixer(transition, box-shadow $z-depth-animation-time $z-depth-animation-function, webkit o spec)
+            transition: box-shadow $z-depth-animation-time $z-depth-animation-function

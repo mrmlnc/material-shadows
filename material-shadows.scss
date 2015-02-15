@@ -2,7 +2,7 @@
 //
 // Name:           Material Shadows
 // Description:    Paper shadows of material design.
-// Version:        1.0.0
+// Version:        1.0.1
 //
 // Author:         Denis Malinochkin
 // Git:            https://github.com/mrmlnc/material-shadows
@@ -15,7 +15,6 @@
 // --------------------------------------------------------------------------------
 
 $z-depth-css:                          false;
-$z-depth-browser-prefix:               false;
 $z-depth-animation:                    true;
 $z-depth-animation-time:               .28s;
 $z-depth-animation-function:           cubic-bezier(.4, 0, .2, 1);
@@ -47,43 +46,16 @@ $z-depth: (
 // Mixins
 // --------------------------------------------------------------------------------
 
-@mixin prefixer ($property, $value, $prefixes) {
-  @if $z-depth-browser-prefix {
-    @each $prefix in $prefixes {
-      @if $prefix == webkit {
-        -webkit-#{$property}: $value;
-      }
-      @else if $prefix == moz {
-        -moz-#{$property}: $value;
-      }
-      @else if $prefix == ms {
-        -ms-#{$property}: $value;
-      }
-      @else if $prefix == o {
-        -o-#{$property}: $value;
-      }
-      @else if $prefix == spec {
-        #{$property}: $value;
-      }
-      @else  {
-        @warn "Unrecognized prefix: #{$prefix}";
-      }
-    }
-  } @else {
-    #{$property}: $value;
-  }
-}
-
 // Top & Bottom
 @mixin z-depth($depth: 1, $orientation: null) {
   @if $orientation == top {
-    @include prefixer(box-shadow, nth(nth($z-depth, $depth), 1), spec);
+    box-shadow: nth(nth($z-depth, $depth), 1);
   }
   @else if $orientation == bottom {
-    @include prefixer(box-shadow, nth(nth($z-depth, $depth), 2), spec);
+    box-shadow: nth(nth($z-depth, $depth), 2);
   }
   @else {
-    @include prefixer(box-shadow, nth($z-depth, $depth), spec);
+    box-shadow: nth($z-depth, $depth);
   }
 }
 
@@ -144,7 +116,7 @@ $z-depth: (
           .z-depth-z3,
           .z-depth-z4,
           .z-depth-z5 {
-            @include prefixer(transition, box-shadow  $z-depth-animation-time $z-depth-animation-function, webkit o spec);
+            transition: box-shadow $z-depth-animation-time $z-depth-animation-function;
           }
         }
       }
