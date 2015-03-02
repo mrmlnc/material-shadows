@@ -1,0 +1,79 @@
+//
+// Test:           material-shadows.less
+// Version:        2.0.0
+//
+// ------------------------------------
+
+@import "../material-shadows.less";
+
+/*
+ * Shadow -> Full
+ * ------------------------------------
+ */
+.test-shadow-full {
+  &-null {
+    .z-depth();
+  }
+
+  &-number {
+    .z-depth(3);
+  }
+}
+
+/*
+ * Shadow -> Top
+ * ------------------------------------
+ */
+.test-shadow-top {
+  &-null {
+    .z-depth-top();
+  }
+
+  &-number {
+    .z-depth-top(3);
+  }
+}
+
+/*
+ * Shadow -> Bottom
+ * ------------------------------------
+ */
+.test-shadow-bottom {
+  &-null {
+    .z-depth-bottom();
+  }
+
+  &-number {
+    .z-depth-bottom(3);
+  }
+}
+
+/*
+ * Shadow -> Animation
+ * ------------------------------------
+ */
+.test-shadow-animation {
+  &-number {
+    .z-depth-animation(3);
+  }
+
+  &-full {
+    .z-depth-animation(3, top);
+  }
+}
+
+/*
+ * Shadow -> Classes
+ * ------------------------------------
+ */
+.test-shadow-classes-null {
+  .z-depth {
+    .z-depth-class();
+  }
+}
+
+.test-shadow-classes-options {
+  .z-depth {
+    .z-depth-class(false, 1s);
+  }
+}

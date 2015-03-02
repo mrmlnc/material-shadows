@@ -1,0 +1,79 @@
+//
+// Test:           material-shadows-prefixed.scss
+// Version:        2.0.0
+//
+// ------------------------------------
+
+@import "../material-shadows-prefixed.scss";
+
+/*
+ * Shadow -> Full
+ * ------------------------------------
+ */
+.test-shadow-full {
+  &-null {
+    @include md-z-depth();
+  }
+
+  &-number {
+    @include md-z-depth(3);
+  }
+}
+
+/*
+ * Shadow -> Top
+ * ------------------------------------
+ */
+.test-shadow-top {
+  &-null {
+    @include md-z-depth-top();
+  }
+
+  &-number {
+    @include md-z-depth-top(3);
+  }
+}
+
+/*
+ * Shadow -> Bottom
+ * ------------------------------------
+ */
+.test-shadow-bottom {
+  &-null {
+    @include md-z-depth-bottom();
+  }
+
+  &-number {
+    @include md-z-depth-bottom(3);
+  }
+}
+
+/*
+ * Shadow -> Animation
+ * ------------------------------------
+ */
+.test-shadow-animation {
+  &-number {
+    @include md-z-depth-animation(3);
+  }
+
+  &-full {
+    @include md-z-depth-animation(3, top);
+  }
+}
+
+/*
+ * Shadow -> Classes
+ * ------------------------------------
+ */
+.test-shadow-classes-null {
+  .z-depth {
+    @include md-z-depth-class();
+  }
+}
+
+.test-shadow-classes-options {
+  .z-depth {
+    @include md-z-depth-class(false, 1s);
+  }
+}

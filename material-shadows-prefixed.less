@@ -1,122 +1,93 @@
-// ================================================================================
 //
 // Name:           Material Shadows
 // Description:    Paper shadows of material design.
-// Version:        1.0.1
+// Version:        2.0.0
 //
 // Author:         Denis Malinochkin
 // Git:            https://github.com/mrmlnc/material-shadows
 //
 // twitter:        @mrmlnc
 //
-// ================================================================================
-
-// Settings
-// --------------------------------------------------------------------------------
-
-@md-z-depth-css:                       false;
-@md-z-depth-animation:                 true;
-@md-z-depth-animation-time:            .28s;
-@md-z-depth-animation-function:        cubic-bezier(.4, 0, .2, 1);
-
-
-
-// Shadows
-// --------------------------------------------------------------------------------
-
-// md-z-depth-1
-@md-z-depth-1-top:                     0 2px 10px 0 rgba(0, 0, 0, 0.16);
-@md-z-depth-1-bottom:                  0 2px 5px 0 rgba(0, 0, 0, 0.26);
-
-// md-z-depth-2
-@md-z-depth-2-top:                     0 6px 20px 0 rgba(0, 0, 0, 0.19);
-@md-z-depth-2-bottom:                  0 8px 17px 0 rgba(0, 0, 0, 0.2);
-
-// md-z-depth-3
-@md-z-depth-3-top:                     0 17px 50px 0 rgba(0, 0, 0, 0.19);
-@md-z-depth-3-bottom:                  0 12px 15px 0 rgba(0, 0, 0, 0.24);
-
-// md-z-depth-4
-@md-z-depth-4-top:                     0 25px 55px 0 rgba(0, 0, 0, 0.21);
-@md-z-depth-4-bottom:                  0 16px 28px 0 rgba(0, 0, 0, 0.22);
-
-// md-z-depth-5
-@md-z-depth-5-top:                     0 40px 77px 0 rgba(0, 0, 0, 0.22);
-@md-z-depth-5-bottom:                  0 27px 24px 0 rgba(0, 0, 0, 0.2);
-
+// ------------------------------------
 
 
 // Mixins
-// --------------------------------------------------------------------------------
+// ------------------------------------
 
-// Top & Bottom
-.md-z-depth(@depth: 1) {
-  box-shadow: ~"@{md-z-depth-@{depth}-bottom}, @{md-z-depth-@{depth}-top}";
-}
-
-// Top
+// Generator for top shadow
 .md-z-depth-top(@depth: 1) {
-  box-shadow: ~"@{md-z-depth-@{depth}-top}";
+  @color:    .12, .19, .19, .21, .22;
+  @offset-y: 2px, 6px, 17px, 25px, 40px;
+  @blur:     10px, 20px, 50px, 55px, 77px;
+
+  box-shadow+: 0 extract(@offset-y, @depth) extract(@blur, @depth) rgba(0, 0, 0, extract(@color, @depth));
 }
 
-// Bottom
+// Generator for bottom shadow
 .md-z-depth-bottom(@depth: 1) {
-  box-shadow: ~"@{md-z-depth-@{depth}-bottom}";
+  @color:    .16, .2, .24, .22, .2;
+  @offset-y: 2px, 8px, 12px, 16px, 27px;
+  @blur:     5px, 17px, 15px, 28px, 24px;
+
+  box-shadow+: 0 extract(@offset-y, @depth) extract(@blur, @depth) rgba(0, 0, 0, extract(@color, @depth));
 }
 
-// Animation
-.md-z-depth-animation(@depth-after, @depth-orientation: full) {
+// Generator for top and bottom shadow
+.md-z-depth(@depth: 1) {
+  .md-z-depth-bottom(@depth);
+  .md-z-depth-top(@depth);
+}
+
+// Generator animation hover and focus effect
+.md-z-depth-animation(@depth, @orientation: full) {
   &:hover,
   &:focus {
-    & when (@depth-orientation = full) {
-      .md-z-depth(@depth-after);
+    & when (@orientation = full) {
+      .md-z-depth(@depth);
     }
 
-    & when (@depth-orientation = top) {
-      .md-z-depth-top(@depth-after);
+    & when (@orientation = top) {
+      .md-z-depth-top(@depth);
     }
 
-    & when (@depth-orientation = bottom) {
-      .md-z-depth-bottom(@depth-after);
+    & when (@orientation = bottom) {
+      .md-z-depth-bottom(@depth);
     }
   }
 }
-
-// Class generator - .md-z-depth-*
-.md-generate-depth(@i: 1, @count) when (@i =< @count) {
-  &-z@{i} {
-    .md-z-depth(@i);
-
-    &-top {
-      .md-z-depth-top(@i);
-    }
-
-    &-bottom {
-      .md-z-depth-bottom(@i);
-    }
-  }
-
-  .md-generate-depth(@i + 1, @count);
-}
-
 
 
 // Classes
-// --------------------------------------------------------------------------------
+// ------------------------------------
+.md-z-depth-class(@animation: true, @time: .28s, @function: cubic-bezier(.4, 0, .2, 1)) {
 
-.md-z-depth when (@md-z-depth-css = true) {
-  .md-generate-depth(1, 5);
+  // Generator for shadow classes
+  .generate-depth-class(@i: 1, @count) when (@i =< @count) {
+    &-@{i} {
+      .md-z-depth(@i);
 
-  // md-z-depth-animation
-  &-animation when (@md-z-depth-animation = true) {
-    &:hover {
-      .md-z-depth-z1,
-      .md-z-depth-z2,
-      .md-z-depth-z3,
-      .md-z-depth-z4,
-      .md-z-depth-z5 {
-        transition: box-shadow @md-z-depth-animation-time @md-z-depth-animation-function;
+      &-top {
+        .md-z-depth-top(@i);
       }
+
+      &-bottom {
+        .md-z-depth-bottom(@i);
+      }
+    }
+
+    .generate-depth-class(@i + 1, @count);
+  }
+
+  .generate-depth-class(1, 5);
+
+  // z-depth-animation
+  &-animation when (@animation = true) {
+    .z-depth-1,
+    .z-depth-2,
+    .z-depth-3,
+    .z-depth-4,
+    .z-depth-5 {
+      transition: box-shadow @time @function;
     }
   }
 }

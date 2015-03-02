@@ -18,7 +18,7 @@ Installation
 How to use
 --------------
 
-Just import the file, whitch includes mixins in your project.
+Just import the file, which includes mixins in your project.
 
 **Less:**
 
@@ -53,7 +53,7 @@ If you use Bower, the path would be:
   - **(depth)** - Depth 1..5.
   - **(orientation)** - None, Top or Bottom.
 
-**Example (Less):**
+**Simple example (Less):**
 
 ````Less
   @import "lib/material-color";
@@ -69,12 +69,41 @@ If you use Bower, the path would be:
   }
 ````
 
-**Settings**
+HTML for `.z-depth-animation()`:
 
-````Text
-  // If True, then will be CSS classes, type: .z-depth-*
-  z-depth-css =                         [true | false (default)];
-  z-depth-animation =                   [true (default) | false];
-  z-depth-animation-time =              .28s;
-  z-depth-animation-function =          cubic-bezier(.4, 0, .2, 1);
+````HTML
+  <div class="z-depth-animation">
+    <div class="z-depth-2">.z-depth-2</div>
+  </div>
 ````
+
+**Class generator example (less):**
+
+Options for animation:
+
+ - @animation: [true (default) | false];
+ - @time: .28s;
+ - @function: cubic-bezier(.4, 0, .2, 1);
+
+````Less
+  @import "lib/material-color";
+  
+  // Class mixin
+  .z-depth {
+    .z-depth-class();
+  }
+  
+  // => (output)
+  .z-depth-1 {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.12);
+  }
+  .z-depth-1-top {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+  }
+  .z-depth-1-bottom {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+  }
+  // and more
+````
+
+More examples in the test directory.

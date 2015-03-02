@@ -1,123 +1,92 @@
-// ================================================================================
 //
 // Name:           Material Shadows
 // Description:    Paper shadows of material design.
-// Version:        1.0.1
+// Version:        2.0.0
 //
 // Author:         Denis Malinochkin
 // Git:            https://github.com/mrmlnc/material-shadows
 //
 // twitter:        @mrmlnc
 //
-// ================================================================================
-
-// Settings
-// --------------------------------------------------------------------------------
-
-$z-depth-css:                          false;
-$z-depth-animation:                    true;
-$z-depth-animation-time:               .28s;
-$z-depth-animation-function:           cubic-bezier(.4, 0, .2, 1);
-
-
-
-// Shadows
-// --------------------------------------------------------------------------------
-
-$z-depth: (
-  // z-depth-1
-  (0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26)),
-
-  // z-depth-2
-  (0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2)),
-
-  // z-depth-3
-  (0 17px 50px 0 rgba(0, 0, 0, 0.19), 0 12px 15px 0 rgba(0, 0, 0, 0.24)),
-
-  // z-depth-4
-  (0 25px 55px 0 rgba(0, 0, 0, 0.21), 0 16px 28px 0 rgba(0, 0, 0, 0.22)),
-
-  // z-depth-5
-  (0 40px 77px 0 rgba(0, 0, 0, 0.22), 0 27px 24px 0 rgba(0, 0, 0, 0.2))
-);
-
-
+// ------------------------------------
 
 // Mixins
-// --------------------------------------------------------------------------------
+// ------------------------------------
 
-// Top & Bottom
-@mixin z-depth($depth: 1, $orientation: null) {
-  @if $orientation == top {
-    box-shadow: nth(nth($z-depth, $depth), 1);
-  }
-  @else if $orientation == bottom {
-    box-shadow: nth(nth($z-depth, $depth), 2);
-  }
-  @else {
-    box-shadow: nth($z-depth, $depth);
-  }
+// Generator for top shadow
+@function z-depth-top($depth: 1) {
+  $color:    .12, .19, .19, .21, .22;
+  $offset-y: 2px, 6px, 17px, 25px, 40px;
+  $blur:     10px, 20px, 50px, 55px, 77px;
+
+  @return 0 nth($offset-y, $depth) nth($blur, $depth) rgba(0, 0, 0, nth($color, $depth));
 }
 
-// Top
 @mixin z-depth-top($depth: 1) {
-  @include z-depth($depth, top);
+  box-shadow: z-depth-top($depth);
 }
 
-// Bottom
+// Generator for bottom shadow
+@function z-depth-bottom($depth: 1) {
+  $color:    .16, .2, .24, .22, .2;
+  $offset-y: 2px, 8px, 12px, 16px, 27px;
+  $blur:     5px, 17px, 15px, 28px, 24px;
+
+  @return 0 nth($offset-y, $depth) nth($blur, $depth) rgba(0, 0, 0, nth($color, $depth));
+}
+
 @mixin z-depth-bottom($depth: 1) {
-  @include z-depth($depth, bottom);
+  box-shadow: z-depth-bottom($depth);
 }
 
-// Animation
-@mixin z-depth-animation($depth-after, $orientation: full) {
+// Generator for top and bottom shadow
+@mixin z-depth($depth: 1) {
+  box-shadow: z-depth-bottom($depth), z-depth-top($depth);
+}
+
+// Generator animation hover and focus effect
+@mixin z-depth-animation($depth, $orientation: full) {
   &:hover,
   &:focus {
     @if $orientation == top {
-      @include z-depth-top($depth-after);
+      @include z-depth-top($depth);
     }
     @else if $orientation == bottom {
-      @include z-depth-bottom($depth-after);
+      @include z-depth-bottom($depth);
     }
     @else {
-      @include z-depth($depth-after);
+      @include z-depth($depth);
     }
   }
 }
 
-
-
 // Classes
-// --------------------------------------------------------------------------------
+// ------------------------------------
 
-@if $z-depth-css {
-  .z-depth {
-    @for $i from 1 to length($z-depth) + 1 {
-      &-z#{$i} {
-        @include z-depth($i);
+@mixin z-depth-class($animation: true, $time: .28s, $function: cubic-bezier(.4, 0, .2, 1)) {
+  @for $i from 1 to 6 {
+    &-#{$i} {
+      @include z-depth($i);
 
-        &-top {
-          @include z-depth-top($i);
-        }
+      &-top {
+        @include z-depth-top($i);
+      }
 
-        &-bottom {
-          @include z-depth-bottom($i);
-        }
+      &-bottom {
+        @include z-depth-bottom($i);
       }
     }
 
 
     // z-depth-animation
-    @if $z-depth-animation {
-      &-animation {
-        &:hover {
-          .z-depth-z1,
-          .z-depth-z2,
-          .z-depth-z3,
-          .z-depth-z4,
-          .z-depth-z5 {
-            transition: box-shadow $z-depth-animation-time $z-depth-animation-function;
-          }
+    &-animation {
+      &:hover {
+        .z-depth-1,
+        .z-depth-2,
+        .z-depth-3,
+        .z-depth-4,
+        .z-depth-5 {
+          transition: box-shadow $time $function;
         }
       }
     }

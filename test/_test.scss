@@ -1,0 +1,79 @@
+//
+// Test:           material-shadows.scss
+// Version:        2.0.0
+//
+// ------------------------------------
+
+@import "../material-shadows.scss";
+
+/*
+ * Shadow -> Full
+ * ------------------------------------
+ */
+.test-shadow-full {
+  &-null {
+    @include z-depth();
+  }
+
+  &-number {
+    @include z-depth(3);
+  }
+}
+
+/*
+ * Shadow -> Top
+ * ------------------------------------
+ */
+.test-shadow-top {
+  &-null {
+    @include z-depth-top();
+  }
+
+  &-number {
+    @include z-depth-top(3);
+  }
+}
+
+/*
+ * Shadow -> Bottom
+ * ------------------------------------
+ */
+.test-shadow-bottom {
+  &-null {
+    @include z-depth-bottom();
+  }
+
+  &-number {
+    @include z-depth-bottom(3);
+  }
+}
+
+/*
+ * Shadow -> Animation
+ * ------------------------------------
+ */
+.test-shadow-animation {
+  &-number {
+    @include z-depth-animation(3);
+  }
+
+  &-full {
+    @include z-depth-animation(3, top);
+  }
+}
+
+/*
+ * Shadow -> Classes
+ * ------------------------------------
+ */
+.test-shadow-classes-null {
+  .z-depth {
+    @include z-depth-class();
+  }
+}
+
+.test-shadow-classes-options {
+  .z-depth {
+    @include z-depth-class(false, 1s);
+  }
+}

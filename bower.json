@@ -1,8 +1,8 @@
 {
   "name": "material-shadows",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "authors": [
-    "Denis Malinochkin <dmalinochkin@land.ru>"
+    "@mrmlnc (Denis Malinochkin)"
   ],
   "description": "Mixins library: Paper shadows of material design",
   "keywords": [

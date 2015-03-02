@@ -1,115 +1,70 @@
-// ================================================================================
 //
 // Name:           Material Shadows
 // Description:    Paper shadows of material design.
-// Version:        1.0.1
+// Version:        2.0.0
 //
 // Author:         Denis Malinochkin
 // Git:            https://github.com/mrmlnc/material-shadows
 //
 // twitter:        @mrmlnc
 //
-// ================================================================================
-
-// Settings
-// --------------------------------------------------------------------------------
-
-$z-depth-css =                         false;
-$z-depth-animation =                   true;
-$z-depth-animation-time =              .28s;
-$z-depth-animation-function =          cubic-bezier(.4, 0, .2, 1);
-
-
-
-// Shadows
-// --------------------------------------------------------------------------------
-$z-depth = {
-  // z-depth-1
-  z1: {
-    top: 0 2px 10px 0 rgba(0, 0, 0, 0.16)
-    bottom: 0 2px 5px 0 rgba(0, 0, 0, 0.26)
-  }
-  // z-depth-2
-  z2: {
-    top: 0 6px 20px 0 rgba(0, 0, 0, 0.19)
-    bottom: 0 8px 17px 0 rgba(0, 0, 0, 0.2)
-  }
-  // z-depth-3
-  z3: {
-    top: 0 17px 50px 0 rgba(0, 0, 0, 0.19)
-    bottom: 0 12px 15px 0 rgba(0, 0, 0, 0.24)
-  }
-  // z-depth-4
-  z4: {
-    top: 0 25px 55px 0 rgba(0, 0, 0, 0.21)
-    bottom: 0 16px 28px 0 rgba(0, 0, 0, 0.22)
-  }
-  // z-depth-5
-  z5: {
-    top: 0 40px 77px 0 rgba(0, 0, 0, 0.22)
-    bottom: 0 27px 24px 0 rgba(0, 0, 0, 0.2)
-  }
-}
-
+// ------------------------------------
 
 
 // Mixins
-// --------------------------------------------------------------------------------
+// ------------------------------------
 
-// Top & Bottom
-z-depth($depth = 1, $orientation = null)
-  $value = $z-depth["z" + $depth]
-
-  if $orientation == top
-    box-shadow: $value["top"]
-  else if $orientation == bottom
-    box-shadow: $value["bottom"]
-  else
-    box-shadow: s(join(', ', $value["top"], $value["bottom"]))
-
-// Top
+// Generator for top shadow
 z-depth-top($depth = 1)
-  z-depth($depth, top)
+  $color =    .12, .19, .19, .21, .22
+  $offset-y = 2px, 6px, 17px, 25px, 40px
+  $blur =     10px, 20px, 50px, 55px, 77px
 
-// Bottom
+  box-shadow: 0 $offset-y[$depth] $blur[$depth] rgba(0, 0, 0, $color[$depth])
+
+// Generator for bottom shadow
 z-depth-bottom($depth = 1)
-  z-depth($depth, bottom)
+  $color =    .16, .2, .24, .22, .2
+  $offset-y = 2px, 8px, 12px, 16px, 27px
+  $blur =     5px, 17px, 15px, 28px, 24px
 
-// Animation
-z-depth-animation($depth-after, $orientation = full)
+  box-shadow: 0 $offset-y[$depth] $blur[$depth] rgba(0, 0, 0, $color[$depth])
+
+// Generator for top and bottom shadow
+z-depth($depth = 1)
+  box-shadow: 0 values(z-depth-bottom($depth)), 0 values(z-depth-top($depth))
+
+// Generator animation hover and focus effect
+z-depth-animation($depth, $orientation = full)
   &:hover,
   &:focus
     if $orientation == top
-      z-depth-top($depth-after)
+      z-depth-top($depth)
     else if $orientation == bottom
-      z-depth-bottom($depth-after)
+      z-depth-bottom($depth)
     else
-      z-depth($depth-after)
-
+      z-depth($depth)
 
 
 // Classes
-// --------------------------------------------------------------------------------
+// ------------------------------------
 
-if $z-depth-css
-  .z-depth
-    for $i in (1)..(length($z-depth))
-      &-z{$i}
-        z-depth($i)
+z-depth-class($animation = true, $time = .28s, $function = cubic-bezier(.4, 0, .2, 1))
+  for $i in 0..4
+    &-{$i + 1}
+      z-depth($i)
+      &-top
+        z-depth-top($i)
+      &-bottom
+        z-depth-bottom($i)
 
-        &-top
-          z-depth-top($i)
-
-        &-bottom
-          z-depth-bottom($i)
-
-    // z-depth-animation
-    if $z-depth-animation
-      &-animation
-        &:hover
-          .z-depth-z1,
-          .z-depth-z2,
-          .z-depth-z3,
-          .z-depth-z4,
-          .z-depth-z5
-            transition: box-shadow $z-depth-animation-time $z-depth-animation-function
+  // z-depth-animation
+  if $animation
+    &-animation
+      &:hover
+        .z-depth-1
+        .z-depth-2
+        .z-depth-3
+        .z-depth-4
+        .z-depth-5
+          transition: box-shadow $time $function
