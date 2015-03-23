@@ -1,6 +1,6 @@
 {
   "name": "material-shadows",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "authors": [
     "@mrmlnc (Denis Malinochkin)"
   ],
@@ -20,6 +20,7 @@
   "license": "MIT",
   "homepage": "https://github.com/mrmlnc/material-shadows",
   "ignore": [
-    "example.html"
+    "example.html",
+    "test"
   ]
 }
