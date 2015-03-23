@@ -41,7 +41,7 @@
 
 // Generator for top and bottom shadow
 @mixin md-z-depth($depth: 1) {
-  box-shadow: md-z-depth-bottom($depth), z-depth-top($depth);
+  box-shadow: md-z-depth-bottom($depth), md-z-depth-top($depth);
 }
 
 // Generator animation hover and focus effect
