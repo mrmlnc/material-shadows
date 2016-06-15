@@ -140,3 +140,11 @@ You can change the animation function. Options for animation:
 - @function: cubic-bezier(.4, 0, .2, 1);
 
 Default settings are taken from the [Polymer](https://www.polymer-project.org/0.5/docs/elements/paper-shadow.html) project.
+
+## Changelog
+
+See the [Releases section of our GitHub project](https://github.com/mrmlnc/material-shadows/releases) for changelogs for each release version.
+
+## License
+
+This software is released under the terms of the MIT license.
