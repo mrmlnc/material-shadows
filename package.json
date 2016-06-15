@@ -1,0 +1,14 @@
+{
+  "name": "material-shadows",
+  "version": "1.0.0",
+  "description": "The paper shadows mixin-library for CSS pre-processors ([Less](http://lesscss.org/), [Sass](http://sass-lang.com/) and [Stylus](http://learnboost.github.io/stylus/)), based on [Google's Material Design](http://www.google.com/design/spec/layout/principles.html).",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrmlnc/material-shadows.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mrmlnc/material-shadows/issues"
+  },
+  "homepage": "https://github.com/mrmlnc/material-shadows#readme"
+}
