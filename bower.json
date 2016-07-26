@@ -1,12 +1,19 @@
 {
   "name": "material-shadows",
+  "description": "Mixins for Material Design Shadows",
+  "license": "MIT",
   "authors": [
-    "@mrmlnc (Denis Malinochkin)"
+    "Denis Malinochkin <dmalinochkin@rambler.ru> (www.canonium.com)"
   ],
-  "description": "Mixins library: Paper shadows of material design",
+  "homepage": "https://github.com/mrmlnc/material-shadows",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mrmlnc/material-shadows.git"
+  },
   "keywords": [
     "google",
     "material",
+    "design",
     "material-design",
     "google-material-design",
     "shadows",
@@ -16,10 +23,13 @@
     "sass",
     "stylus"
   ],
-  "license": "MIT",
-  "homepage": "https://github.com/mrmlnc/material-shadows",
+  "main": [
+    "material-shadows.less",
+    "material-shadows.scss",
+    "material-shadows.styl"
+  ],
   "ignore": [
-    "example.html",
-    "test"
+    "test",
+    "package.json"
   ]
 }
