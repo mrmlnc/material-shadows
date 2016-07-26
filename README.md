@@ -1,23 +1,29 @@
 # Material Design Shadows
 
-The paper shadows mixin-library for CSS pre-processors ([Less](http://lesscss.org/), [Sass](http://sass-lang.com/) and [Stylus](http://learnboost.github.io/stylus/)), based on [Google's Material Design](http://www.google.com/design/spec/layout/principles.html).
+> The paper shadows mixin-library for CSS pre-processors.
 
-## Quick start
+## Installation
 
-Several quick start options are available:
+  * git: `git clone git://github.com/mrmlnc/material-shadows.git`;
+  * bower: `bower install --save material-shadows`
+  * npm: `npm install --save material-shadows`;
 
-- [Download the latest release](https://github.com/mrmlnc/material-shadows/releases).
-- Clone the repo: `git clone git://github.com/mrmlnc/material-shadows.git`.
-- Install with Bower: `bower install material-shadows --save-dev`.
+## Supported languages
+
+Support for all popular css preprocessors:
+
+  * [Less](http://lesscss.org/)
+  * [Sass](http://sass-lang.com/)
+  * [Stylus](http://learnboost.github.io/stylus/)
 
 ## How to use
 
 Just import the file, which includes mixins in your project.
 
-```
+```less
 // Less
 @import "lib/material-shadows";
-// Sass
+// SCSS
 @import "lib/material-shadows"
 // Stylus
 @import "lib/material-shadows";
@@ -25,7 +31,7 @@ Just import the file, which includes mixins in your project.
 
 ## Syntax
 
-```Less
+```less
 // Syntax
 .example {
   // Full shadow: top & bottom
@@ -54,7 +60,7 @@ Examples are written using the CSS pre-processor [Less](http://lesscss.org/). If
 
 **Simple example**
 
-```Less
+```less
 // Include library
 @import "lib/material-color";
 
@@ -81,7 +87,7 @@ Examples are written using the CSS pre-processor [Less](http://lesscss.org/). If
 
 For the convenience in the library added mixin for create animation. The parent selector must contain a class with an mixin of animation. Its syntax is as follows:
 
-```Less
+```less
 // Include library
 @import "lib/material-color";
 
@@ -108,7 +114,7 @@ HTML markup for `.z-depth-animation()`:
 
 You can also create a helper classes for all levels shadows.
 
-```Less
+```less
 // Include library
 @import "lib/material-color";
 
@@ -135,9 +141,9 @@ You can also create a helper classes for all levels shadows.
 
 You can change the animation function. Options for animation:
 
-- @animation: [true (default) | false];
-- @time: .28s;
-- @function: cubic-bezier(.4, 0, .2, 1);
+  * @animation: [true (default) | false];
+  * @time: .28s;
+  * @function: cubic-bezier(.4, 0, .2, 1);
 
 Default settings are taken from the [Polymer](https://www.polymer-project.org/0.5/docs/elements/paper-shadow.html) project.
 
