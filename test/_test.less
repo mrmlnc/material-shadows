@@ -7,73 +7,25 @@
 @import "../material-shadows.less";
 
 /*
- * Shadow -> Full
+ * Shadow -> Default
  * ------------------------------------
  */
-.test-shadow-full {
-  &-null {
-    .z-depth();
-  }
-
-  &-number {
-    .z-depth(3);
-  }
+.test-shadow-classes {
+  .shadow-classes();
 }
 
 /*
- * Shadow -> Top
+ * Shadow -> With Transition
  * ------------------------------------
  */
-.test-shadow-top {
-  &-null {
-    .z-depth-top();
-  }
-
-  &-number {
-    .z-depth-top(3);
-  }
+.test-shadow-classes-transition {
+  .shadow-classes(true);
 }
 
 /*
- * Shadow -> Bottom
+ * Shadow -> With Focus Class
  * ------------------------------------
  */
-.test-shadow-bottom {
-  &-null {
-    .z-depth-bottom();
-  }
-
-  &-number {
-    .z-depth-bottom(3);
-  }
-}
-
-/*
- * Shadow -> Animation
- * ------------------------------------
- */
-.test-shadow-animation {
-  &-number {
-    .z-depth-animation(3);
-  }
-
-  &-full {
-    .z-depth-animation(3, top);
-  }
-}
-
-/*
- * Shadow -> Classes
- * ------------------------------------
- */
-.test-shadow-classes-null {
-  .z-depth {
-    .z-depth-class();
-  }
-}
-
-.test-shadow-classes-options {
-  .z-depth {
-    .z-depth-class(false, 1s);
-  }
+.test-shadow-classes-focus {
+  .shadow-classes(false, true);
 }

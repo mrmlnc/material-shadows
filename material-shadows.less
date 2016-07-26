@@ -1,6 +1,6 @@
 //
 // Name:           Material Shadows
-// Description:    Paper shadows of material design.
+// Description:    Mixins for Material Design Shadows.
 // Version:        2.0.1
 //
 // Author:         Denis Malinochkin
@@ -14,80 +14,83 @@
 // Mixins
 // ------------------------------------
 
-// Generator for top shadow
-.z-depth-top(@depth: 1) {
-  @color:    .12, .19, .19, .21, .22;
-  @offset-y: 2px, 6px, 17px, 25px, 40px;
-  @blur:     10px, 20px, 50px, 55px, 77px;
-
-  box-shadow+: 0 extract(@offset-y, @depth) extract(@blur, @depth) rgba(0, 0, 0, extract(@color, @depth));
+.shadow-2dp() {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+              0 1px 5px 0 rgba(0, 0, 0, 0.12),
+              0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 
-// Generator for bottom shadow
-.z-depth-bottom(@depth: 1) {
-  @color:    .16, .2, .24, .22, .2;
-  @offset-y: 2px, 8px, 12px, 16px, 27px;
-  @blur:     5px, 17px, 15px, 28px, 24px;
-
-  box-shadow+: 0 extract(@offset-y, @depth) extract(@blur, @depth) rgba(0, 0, 0, extract(@color, @depth));
+.shadow-3dp() {
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14),
+              0 1px 8px 0 rgba(0, 0, 0, 0.12),
+              0 3px 3px -2px rgba(0, 0, 0, 0.4);
 }
 
-// Generator for top and bottom shadow
-.z-depth(@depth: 1) {
-  .z-depth-bottom(@depth);
-  .z-depth-top(@depth);
+.shadow-4dp() {
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+              0 1px 10px 0 rgba(0, 0, 0, 0.12),
+              0 2px 4px -1px rgba(0, 0, 0, 0.4);
 }
 
-// Generator animation hover and focus effect
-.z-depth-animation(@depth, @orientation: full) {
-  &:hover,
-  &:focus {
-    & when (@orientation = full) {
-      .z-depth(@depth);
-    }
+.shadow-6dp() {
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14),
+              0 1px 18px 0 rgba(0, 0, 0, 0.12),
+              0 3px 5px -1px rgba(0, 0, 0, 0.4);
+}
 
-    & when (@orientation = top) {
-      .z-depth-top(@depth);
-    }
+.shadow-8dp() {
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12),
+              0 5px 5px -3px rgba(0, 0, 0, 0.4);
+}
 
-    & when (@orientation = bottom) {
-      .z-depth-bottom(@depth);
-    }
-  }
+.shadow-16dp() {
+  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14),
+              0  6px 30px 5px rgba(0, 0, 0, 0.12),
+              0  8px 10px -5px rgba(0, 0, 0, 0.4);
+}
+
+.shadow-24dp() {
+  box-shadow: 0  9px 46px  8px rgba(0, 0, 0, .14),
+              0 24px 38px  3px rgba(0, 0, 0, .12),
+              0 11px 15px -7px rgba(0, 0, 0, .4);
+}
+
+.shadow(@dp: 2) {
+  & when (@dp = 2) { .shadow-2dp(); }
+  & when (@dp = 3) { .shadow-3dp(); }
+  & when (@dp = 4) { .shadow-4dp(); }
+  & when (@dp = 6) { .shadow-6dp(); }
+  & when (@dp = 8) { .shadow-8dp(); }
+  & when (@dp = 16) { .shadow-16dp(); }
+  & when (@dp = 24) { .shadow-24dp(); }
 }
 
 
-// Classes
+// Class generator
 // ------------------------------------
-.z-depth-class(@animation: true, @time: .28s, @function: cubic-bezier(.4, 0, .2, 1)) {
 
-  // Generator for shadow classes
-  .generate-depth-class(@i: 1, @count) when (@i =< @count) {
-    &-@{i} {
-      .z-depth(@i);
-
-      &-top {
-        .z-depth-top(@i);
-      }
-
-      &-bottom {
-        .z-depth-bottom(@i);
-      }
-    }
-
-    .generate-depth-class(@i + 1, @count);
+.shadow-classes(@transition: false, @focus: false) {
+  &-transition when (@transition = true) {
+    transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .generate-depth-class(1, 5);
-
-  // z-depth-animation
-  &-animation when (@animation = true) {
-    .z-depth-1,
-    .z-depth-2,
-    .z-depth-3,
-    .z-depth-4,
-    .z-depth-5 {
-      transition: box-shadow @time @function;
-    }
+  &-focus when (@focus = true) {
+    box-shadow: 0 0 8px rgba(0, 0, 0, .18), 0 8px 16px rgba(0, 0, 0, .36);
   }
+
+  // The available values for the shadow depth
+  @list: 2, 3, 4, 6, 8, 16, 24;
+
+  .generate-shadow-class(@i: 1, @count) when (@i =< @count) {
+    @depth: extract(@list, @i);
+
+    &-@{depth}dp {
+      .shadow();
+    }
+
+    .generate-shadow-class(@i + 1, @count);
+  }
+
+  .generate-shadow-class(1, 7);
 }

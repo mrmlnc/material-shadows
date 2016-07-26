@@ -1,6 +1,6 @@
 //
 // Name:           Material Shadows
-// Description:    Paper shadows of material design.
+// Description:    Mixins for Material Design Shadows.
 // Version:        2.0.1
 //
 // Author:         Denis Malinochkin
@@ -10,85 +10,91 @@
 //
 // ------------------------------------
 
+
 // Mixins
 // ------------------------------------
 
-// Generator for top shadow
-@function z-depth-top($depth: 1) {
-  $color:    .12, .19, .19, .21, .22;
-  $offset-y: 2px, 6px, 17px, 25px, 40px;
-  $blur:     10px, 20px, 50px, 55px, 77px;
-
-  @return 0 nth($offset-y, $depth) nth($blur, $depth) rgba(0, 0, 0, nth($color, $depth));
+@mixin shadow-2dp() {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+              0 1px 5px 0 rgba(0, 0, 0, 0.12),
+              0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
 
-@mixin z-depth-top($depth: 1) {
-  box-shadow: z-depth-top($depth);
+@mixin shadow-3dp() {
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14),
+              0 1px 8px 0 rgba(0, 0, 0, 0.12),
+              0 3px 3px -2px rgba(0, 0, 0, 0.4);
 }
 
-// Generator for bottom shadow
-@function z-depth-bottom($depth: 1) {
-  $color:    .16, .2, .24, .22, .2;
-  $offset-y: 2px, 8px, 12px, 16px, 27px;
-  $blur:     5px, 17px, 15px, 28px, 24px;
-
-  @return 0 nth($offset-y, $depth) nth($blur, $depth) rgba(0, 0, 0, nth($color, $depth));
+@mixin shadow-4dp() {
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+              0 1px 10px 0 rgba(0, 0, 0, 0.12),
+              0 2px 4px -1px rgba(0, 0, 0, 0.4);
 }
 
-@mixin z-depth-bottom($depth: 1) {
-  box-shadow: z-depth-bottom($depth);
+@mixin shadow-6dp() {
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14),
+              0 1px 18px 0 rgba(0, 0, 0, 0.12),
+              0 3px 5px -1px rgba(0, 0, 0, 0.4);
 }
 
-// Generator for top and bottom shadow
-@mixin z-depth($depth: 1) {
-  box-shadow: z-depth-bottom($depth), z-depth-top($depth);
+@mixin shadow-8dp() {
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12),
+              0 5px 5px -3px rgba(0, 0, 0, 0.4);
 }
 
-// Generator animation hover and focus effect
-@mixin z-depth-animation($depth, $orientation: full) {
-  &:hover,
-  &:focus {
-    @if $orientation == top {
-      @include z-depth-top($depth);
-    }
-    @else if $orientation == bottom {
-      @include z-depth-bottom($depth);
-    }
-    @else {
-      @include z-depth($depth);
-    }
+@mixin shadow-16dp() {
+  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14),
+              0  6px 30px 5px rgba(0, 0, 0, 0.12),
+              0  8px 10px -5px rgba(0, 0, 0, 0.4);
+}
+
+@mixin shadow-24dp() {
+  box-shadow: 0  9px 46px  8px rgba(0, 0, 0, .14),
+              0 24px 38px  3px rgba(0, 0, 0, .12),
+              0 11px 15px -7px rgba(0, 0, 0, .4);
+}
+
+@mixin shadow($dp: 2) {
+  @if $dp == 2 {
+    @include shadow-2dp();
+  } @else if $dp == 3 {
+    @include shadow-3dp();
+  } @else if $dp == 4 {
+    @include shadow-4dp();
+  } @else if $dp == 6 {
+    @include shadow-6dp();
+  } @else if $dp == 8 {
+    @include shadow-8dp();
+  } @else if $dp == 12 {
+    @include shadow-12dp();
+  } @else if $dp == 24 {
+    @include shadow-24dp();
   }
 }
 
-// Classes
+
+// Class generator
 // ------------------------------------
 
-@mixin z-depth-class($animation: true, $time: .28s, $function: cubic-bezier(.4, 0, .2, 1)) {
-  @for $i from 1 to 6 {
-    &-#{$i} {
-      @include z-depth($i);
-
-      &-top {
-        @include z-depth-top($i);
-      }
-
-      &-bottom {
-        @include z-depth-bottom($i);
-      }
+@mixin shadow-classes($transition: false, $focus: false) {
+  @if $transition == true {
+    &-transition {
+      transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     }
+  }
 
+  @if $focus == true {
+    &-focus {
+      box-shadow: 0 0 8px rgba(0, 0, 0, .18), 0 8px 16px rgba(0, 0, 0, .36);
+    }
+  }
 
-    // z-depth-animation
-    &-animation {
-      &:hover {
-        .z-depth-1,
-        .z-depth-2,
-        .z-depth-3,
-        .z-depth-4,
-        .z-depth-5 {
-          transition: box-shadow $time $function;
-        }
-      }
+  // The available values for the shadow depth
+  @each $depth in 2, 3, 4, 6, 8, 16, 24 {
+    &-#{$depth}dp {
+      @include shadow($depth);
     }
   }
 }
