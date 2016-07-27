@@ -2,6 +2,8 @@
 
 > The paper shadows mixin-library for CSS pre-processors.
 
+![demo](https://cloud.githubusercontent.com/assets/7034281/17182925/1cfc8376-542e-11e6-96ea-a25138b9d32a.png)
+
 ## Installation
 
   * git: `git clone git://github.com/mrmlnc/material-shadows.git`;
