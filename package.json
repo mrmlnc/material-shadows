@@ -23,6 +23,6 @@
     "stylus"
   ],
   "files": [
-    "**/*.{less,scss,styl}"
+    "*.{less,scss,styl}"
   ]
 }
