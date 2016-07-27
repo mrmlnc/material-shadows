@@ -75,8 +75,8 @@
     @include z-depth-6dp();
   } @else if $dp == 8 {
     @include z-depth-8dp();
-  } @else if $dp == 12 {
-    @include z-depth-12dp();
+  } @else if $dp == 16 {
+    @include z-depth-16dp();
   } @else if $dp == 24 {
     @include z-depth-24dp();
   }
