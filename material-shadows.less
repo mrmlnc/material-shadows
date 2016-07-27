@@ -14,69 +14,77 @@
 // Mixins
 // ------------------------------------
 
-.shadow-2dp() {
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
-              0 1px 5px 0 rgba(0, 0, 0, 0.12),
-              0 3px 1px -2px rgba(0, 0, 0, 0.2);
+.z-depth-transition() {
+  transition: box-shadow .28s cubic-bezier(.4, 0, .2, 1);
 }
 
-.shadow-3dp() {
-  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14),
-              0 1px 8px 0 rgba(0, 0, 0, 0.12),
-              0 3px 3px -2px rgba(0, 0, 0, 0.4);
+.z-depth-focus() {
+  box-shadow: 0 0 8px rgba(0, 0, 0, .18), 0 8px 16px rgba(0, 0, 0, .36);
 }
 
-.shadow-4dp() {
-  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14),
-              0 1px 10px 0 rgba(0, 0, 0, 0.12),
-              0 2px 4px -1px rgba(0, 0, 0, 0.4);
+.z-depth-2dp() {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14),
+              0 1px 5px 0 rgba(0, 0, 0, .12),
+              0 3px 1px -2px rgba(0, 0, 0, .2);
 }
 
-.shadow-6dp() {
-  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14),
-              0 1px 18px 0 rgba(0, 0, 0, 0.12),
-              0 3px 5px -1px rgba(0, 0, 0, 0.4);
+.z-depth-3dp() {
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .14),
+              0 1px 8px 0 rgba(0, 0, 0, .12),
+              0 3px 3px -2px rgba(0, 0, 0, .4);
 }
 
-.shadow-8dp() {
-  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
-              0 3px 14px 2px rgba(0, 0, 0, 0.12),
-              0 5px 5px -3px rgba(0, 0, 0, 0.4);
+.z-depth-4dp() {
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14),
+              0 1px 10px 0 rgba(0, 0, 0, .12),
+              0 2px 4px -1px rgba(0, 0, 0, .4);
 }
 
-.shadow-16dp() {
-  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14),
-              0  6px 30px 5px rgba(0, 0, 0, 0.12),
-              0  8px 10px -5px rgba(0, 0, 0, 0.4);
+.z-depth-6dp() {
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, .14),
+              0 1px 18px 0 rgba(0, 0, 0, .12),
+              0 3px 5px -1px rgba(0, 0, 0, .4);
 }
 
-.shadow-24dp() {
+.z-depth-8dp() {
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14),
+              0 3px 14px 2px rgba(0, 0, 0, .12),
+              0 5px 5px -3px rgba(0, 0, 0, .4);
+}
+
+.z-depth-16dp() {
+  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, .14),
+              0  6px 30px 5px rgba(0, 0, 0, .12),
+              0  8px 10px -5px rgba(0, 0, 0, .4);
+}
+
+.z-depth-24dp() {
   box-shadow: 0  9px 46px  8px rgba(0, 0, 0, .14),
               0 24px 38px  3px rgba(0, 0, 0, .12),
               0 11px 15px -7px rgba(0, 0, 0, .4);
 }
 
-.shadow(@dp: 2) {
-  & when (@dp = 2) { .shadow-2dp(); }
-  & when (@dp = 3) { .shadow-3dp(); }
-  & when (@dp = 4) { .shadow-4dp(); }
-  & when (@dp = 6) { .shadow-6dp(); }
-  & when (@dp = 8) { .shadow-8dp(); }
-  & when (@dp = 16) { .shadow-16dp(); }
-  & when (@dp = 24) { .shadow-24dp(); }
+.z-depth(@dp: 2) {
+  & when (@dp = 2) { .z-depth-2dp(); }
+  & when (@dp = 3) { .z-depth-3dp(); }
+  & when (@dp = 4) { .z-depth-4dp(); }
+  & when (@dp = 6) { .z-depth-6dp(); }
+  & when (@dp = 8) { .z-depth-8dp(); }
+  & when (@dp = 16) { .z-depth-16dp(); }
+  & when (@dp = 24) { .z-depth-24dp(); }
 }
 
 
 // Class generator
 // ------------------------------------
 
-.shadow-classes(@transition: false, @focus: false) {
+.z-depth-classes(@transition: false, @focus: false) {
   &-transition when (@transition = true) {
-    transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    .z-depth-transition();
   }
 
   &-focus when (@focus = true) {
-    box-shadow: 0 0 8px rgba(0, 0, 0, .18), 0 8px 16px rgba(0, 0, 0, .36);
+    .z-depth-focus();
   }
 
   // The available values for the shadow depth
@@ -86,7 +94,7 @@
     @depth: extract(@list, @i);
 
     &-@{depth}dp {
-      .shadow();
+      .z-depth();
     }
 
     .generate-shadow-class(@i + 1, @count);

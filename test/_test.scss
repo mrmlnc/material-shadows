@@ -11,7 +11,7 @@
  * ------------------------------------
  */
 .test-shadow-classes {
-  @include shadow-classes();
+  @include z-depth-classes();
 }
 
 /*
@@ -19,7 +19,7 @@
  * ------------------------------------
  */
 .test-shadow-classes-transition {
-  @include shadow-classes(true);
+  @include z-depth-classes(true);
 }
 
 /*
@@ -27,5 +27,5 @@
  * ------------------------------------
  */
 .test-shadow-classes-focus {
-  @include shadow-classes(false, true);
+  @include z-depth-classes(false, true);
 }
