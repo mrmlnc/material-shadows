@@ -94,7 +94,7 @@
     @depth: extract(@list, @i);
 
     &-@{depth}dp {
-      .z-depth();
+      .z-depth(@depth);
     }
 
     .generate-shadow-class(@i + 1, @count);
